@@ -15,6 +15,14 @@ export default {
         'bluee' : '#17A9E2',
         'greytext' : '#646567',
         'bggrey' : '#D9D9D9',
+        'purple': '#6150C1',
+        'green': '#146C94',
+        'greenlight': '#1FFFE1',
+        'purpletua': '#4A3764',
+
+
+
+
       },
     },
   },

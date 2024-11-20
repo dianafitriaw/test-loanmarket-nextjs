@@ -1,70 +1,56 @@
-"use client"
+"use client";
 
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
-ChartJS.register(ArcElement, Tooltip, Legend,ChartDataLabels);
+ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
 export default function Chardtopbank() {
+  const data = [
+    { label: "BRI", value: 30, color: "#4A3764" },
+    { label: "Artha Graha", value: 25, color: "#1FFFE1" },
+    { label: "BTN", value: 20, color: "#17A9E2" },
+    { label: "Mandiri", value: 15, color: "#146C94" },
+    { label: "KEB Hana Bank", value: 10, color: "#6150C1" },
+  ];
 
-let data= [
-  {
-    label: "Label 1",
-    value: 55,
-    color: "rgba(0, 43, 73, 1)",
-    cutout: "50%",
-  },
-  {
-    label: "Label 2",
-    value:15,
-    color: "rgba(0, 103, 160, 1)",
-    cutout: "50%",
-  },
-  {
-    label: "Label 3",
-    value: 80,
-    color: "rgba(83, 217, 217, 1)",
-    cutout: "50%",
-  },
-]
-
-  const options: any = {
+  const options = {
     plugins: {
-   datalabels: {
-        formatter: function (value) {
-          let val = Math.round(value);
-          return new Intl.NumberFormat("tr-TR").format(val); //for number format
-        },
+      datalabels: {
+        formatter: (value: number) => `${value}%`, // Menampilkan persentase
         color: "white",
-        
         font: {
-          weight: 'bold',
-          size:14,
-          family: 'poppins',
+          weight: "bold", // Gunakan tipe yang kompatibel
+          size: 14,
+          family: "Poppins",
         },
       },
-      responsive: true,
+      tooltip: {
+        callbacks: {
+          label: (tooltipItem: any) =>
+            `${tooltipItem.label}: ${tooltipItem.raw}%`, // Tooltip lebih jelas
+        },
+      },
     },
-    cutout: data.map((item) => item.cutout),
+    responsive: true,
+    maintainAspectRatio: false, // Penting untuk responsivitas
   };
 
   const finalData = {
     labels: data.map((item) => item.label),
     datasets: [
       {
-        data: data.map((item) => Math.round(item.value)),
+        data: data.map((item) => item.value),
         backgroundColor: data.map((item) => item.color),
-        borderColor: data.map((item) => item.color),
         borderWidth: 1,
-        dataVisibility: new Array(data.length).fill(true),
       },
     ],
   };
 
   return (
-    <div className="w-[180px] h-[180px]">
-      <Doughnut data={finalData} options={options} />
+    <div className="w-full max-w-[450px] h-auto mx-auto">
+      <Doughnut data={finalData} />
     </div>
   );
 }

@@ -43,7 +43,7 @@ let data= [
   };
 
   return (
-    <div className="w-[180px] h-[180px]">
+    <div className="w-full max-w-[200px] h-auto md:max-w-[300px] flex justify-center items-center">
       <Doughnut data={finalData} options={options} />
     </div>
   );
